@@ -1,18 +1,18 @@
-# 🧩 Research Archive: NN and MIP
+# Maximizing Sparsity in NN with MIP
 
 **Authors:** Jeff Linderoth, Changwon Lee  
 **Affiliation:** University of Wisconsin–Madison  
-**Date:** August 2025  
-**Motivated by:** Rob Nowak, Fischetti, and Jo  
+**Date:** August 2025 
+**Motivated by:** Robert Nowak, Fischetti and Jo  
 
 ---
 
-## 🧠 Problem Setting
+## Problem Setting
 
 1. Given **N datasets**:  
-   \[
+   $$
    (\mathbf{x}^1, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)
-   \]
+   $$
 
 2. **Input:**  
    Each input vector is *d*-dimensional  
