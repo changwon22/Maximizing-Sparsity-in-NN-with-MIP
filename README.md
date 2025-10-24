@@ -1,6 +1,6 @@
 # Maximizing Sparsity in NN with MIP
 
-**Authors:** Changwon Lee, Jeff Linderoth
+**Authors:** Changwon Lee, Jeff Linderoth  
 **Affiliation:** University of Wisconsin–Madison  
 **Date:** August 2025 
 **Motivated by:** Robert Nowak, Fischetti and Jo  
