@@ -10,9 +10,9 @@
 ## Problem Setting
 
 1. Given **N datasets**:  
-   $$
+   $
    (\mathbf{x}^1, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)
-   $$
+   $
 
 2. **Input:**  
    Each input vector is *d*-dimensional  
