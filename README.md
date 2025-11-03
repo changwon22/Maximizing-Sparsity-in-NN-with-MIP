@@ -15,12 +15,13 @@ $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \
 
 ## Problem Setting
 
-1. Given **N datasets**:  
+1. Given **N datasets**:
+   $\mathbf{x}$
    $
    (\mathbf{x}^1, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)
    $
 
-2. **Input:**  
+3. **Input:**  
    Each input vector is *d*-dimensional  
    \[
    \mathbf{x}^n = (x^n_1, x^n_2, \ldots, x^n_d) \in \mathbb{R}^d, \quad \forall n \in [N]
@@ -30,7 +31,7 @@ $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \
    \overline{\mathbf{x}^n} = (x^n_1, x^n_2, \ldots, x^n_d, 1) \in \mathbb{R}^{d+1}
    \]
 
-3. Each sample passes through:
+4. Each sample passes through:
    \[
    \mathbf{x}^n \rightarrow \text{Affine Combination } (\mathbf{w}^k \overline{\mathbf{x}^n}) 
    \rightarrow \text{Nonlinear Operator (ReLU)} 
