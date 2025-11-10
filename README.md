@@ -3,7 +3,7 @@
 **Authors:** Changwon Lee, Jeff Linderoth  
 **Affiliation:** University of Wisconsin–Madison  
 **Date:** August 2025\
-**Motivated by:** Robert Nowak, Fischetti and Jo  
+**Motivated by:** Rob Nowak, Fischetti and Jo  
 
 ---
 
@@ -16,10 +16,7 @@ $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \
 ## Problem Setting
 
 1. Given **N datasets**:
-   $\mathbf{x}$
-   $
-   (\mathbf{x}^1, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)
-   $
+   $(\mathbf{x}^1, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)$
 
 3. **Input:**  
    Each input vector is *d*-dimensional  
