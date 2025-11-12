@@ -7,6 +7,16 @@
 
 ---
 
+Sparsifying a Neural Network model has been a big interest in many areas.
+
+Works like "" have proven some 
+
+In this paper, we want to leverage the MIP formulation of a Neural Network model with nonlinear activation function and try to find the true sparsest NN weights.
+
+In our problem, we aim to interpolate our dataset exactly to a single-hidden layer NN model with ReLU activation function.
+
+We can generalize this setting in several ways: multiple-hidden layers, 
+
 This sentence uses `$` delimiters to show math inline: $\sqrt{3x-1}+(1+x)^2$
 
 This sentence uses $\` and \`$ delimiters to show math inline: $`\sqrt{3x-1}+(1+x)^2`$
