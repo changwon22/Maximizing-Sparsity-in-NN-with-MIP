@@ -1,3 +1,5 @@
+![Description](images/UW_main_compact_white.png)
+
 # Maximizing Sparsity in NN with MIP
 
 **Authors:** Changwon Lee, Jeff Linderoth  
