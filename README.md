@@ -1,4 +1,4 @@
-![Description](images/UW_main_compact_white.png)
+<img src="images/UW_main_compact_white.png" alt="Description" width="600">
 
 # Maximizing Sparsity in NN with MIP
 
