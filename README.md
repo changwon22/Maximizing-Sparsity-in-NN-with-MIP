@@ -9,14 +9,19 @@
 
 Sparsifying a Neural Network(NN) model has been a big interest in many areas.
 
-Works like "[Global Minimizers of l^p-Regularized Objectives Yield the Sparsest ReLU Neural Networks]((https://arxiv.org/pdf/2505.21791))" have proven some interesting properies about the sparsity of a single-hidden layer Neural Networks.
+Works like "[Global Minimizers of l^p-Regularized Objectives Yield the Sparsest ReLU Neural Networks](https://arxiv.org/pdf/2505.21791)" have proven some interesting properties about the sparsity of a single-hidden layer NN.
 
 In this paper, we want to leverage the MIP formulation of a Neural Network model with nonlinear activation function and try to find the true sparsest NN weights.
 (We will refer to the MIP formulation of a NN presented by "[Fischetti&Jo](https://link.springer.com/content/pdf/10.1007/s10601-018-9285-6.pdf)".)
 
 In our problem, we aim to interpolate our dataset exactly to a single-hidden layer NN model with ReLU activation function.
 
-We can generalize this setting in several ways: multiple-hidden layers, 
+We first start with the vanilla setting of the NN and proceed to generalize the architecture of the NN.
+
+We can generalize this setting in several ways
+```
+multiple-hidden layers, 
+```
 
 This sentence uses `$` delimiters to show math inline: $\sqrt{3x-1}+(1+x)^2$
 
@@ -130,6 +135,9 @@ t_{ij} \in \{0,1\}
 Same structure as above, generalized for arbitrary layer width \( l_1 \) and input dimension \( d \).
 
 ---
+
+## Current Step we are taking now: Eliminate Symmetry to achieve faster run time
+
 
 ## 📚 References
 
