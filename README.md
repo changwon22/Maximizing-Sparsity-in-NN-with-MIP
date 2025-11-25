@@ -9,7 +9,7 @@
 
 Sparsifying a Neural Network model has been a big interest in many areas.
 
-Works like "[Global Minimizers of l^p-Regularized Objectives Yield the Sparsest ReLU Neural Networks](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://arxiv.org/pdf/2505.21791?)" have proven some 
+Works like "[Global Minimizers of l^p-Regularized Objectives Yield the Sparsest ReLU Neural Networks](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=fn13u8IAAAAJ&sortby=pubdate&citation_for_view=fn13u8IAAAAJ:qzuIxkxWBNsC)" have proven some 
 
 In this paper, we want to leverage the MIP formulation of a Neural Network model with nonlinear activation function and try to find the true sparsest NN weights.
 
