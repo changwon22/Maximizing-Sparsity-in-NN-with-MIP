@@ -9,7 +9,7 @@
 
 Sparsifying a Neural Network model has been a big interest in many areas.
 
-Works like "" have proven some 
+Works like "[Global Minimizers of l^p-Regularized Objectives Yield the Sparsest ReLU Neural Networks](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://arxiv.org/pdf/2505.21791?)" have proven some 
 
 In this paper, we want to leverage the MIP formulation of a Neural Network model with nonlinear activation function and try to find the true sparsest NN weights.
 
@@ -23,10 +23,34 @@ This sentence uses $\` and \`$ delimiters to show math inline: $`\sqrt{3x-1}+(1+
 
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
+### Problem Description
+
+We solve the following LP:
+
+$$
+\begin{aligned}
+\text{maximize} \quad & 5x + 4y \\
+\text{subject to}\quad
+& 6x + 4y \le 24 \\
+& x + 2y \le 6 \\
+& x, y \ge 0
+\end{aligned}
+$$
+
+where:
+- $x$ = units of product A  
+- $y$ = units of product B
+
 ## Problem Setting
 
+$(\mathbf{x}^1, y^1)$
+$(\mathbf{x}^{(1)}, y^{(1)})$
+$(\boldsymbol{x}^1, y^1)$
+(<b>x</b><sup>1</sup>, y<sup>1</sup>)
+(<strong>x</strong><sup>1</sup>, y<sup>1</sup>)
+
 1. Given **N datasets**:
-   $(\mathbf{x}^1, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)$
+   $(**{x^1}**, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)$
 
 3. **Input:**  
    Each input vector is *d*-dimensional  
