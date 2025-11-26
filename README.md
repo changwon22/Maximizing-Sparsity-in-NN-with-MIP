@@ -28,7 +28,8 @@ multiple-hidden-layers, different activation function, multivariate output
 ## Problem Setting
 
 * Given **N datasets**: $(x^1, y^1), (x^2, y^2), \dots, (x^N, y^N) \in R^d \times R$
-* Find weight/bias parameters: $
+* Find weight/bias parameters: $W \in R^{K \times d}, b \in R^k, v \in R^K$ 
+* $f(x^n)= $
 * $x^n \rightarrow W^T x^n + b$
 
 4. Each sample passes through:
@@ -46,9 +47,7 @@ How to measure the sparsity of a NN is an important issue.
 
 At this point, we define sparsity as the number of nonzero 'path' of the NN, i.e., and we set this as the objective function of our optimization problem.
 
-### Feasibility Check
 
-There are two ways to determine the width $K$ of the single-hidden-layer.
 
 
 ## 🧮 Neural Network Formulation
@@ -62,6 +61,13 @@ h^1_i = \max\{0, \mathbf{w}_i \cdot \mathbf{x}^n + b^1_i\}
 \]
 
 ---
+
+### Feasibility Check
+
+There are two ways to determine the width $K$ of the single-hidden-layer.
+1. By [Bubeck], the optimization problem is always feasible when $K>=N$.
+   Therefore, set $K=N$ and solve the feasible problem.
+2. By [
 
 ## 🔢 MIP Formulation 1
 
