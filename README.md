@@ -11,54 +11,23 @@
 
 Sparsifying a Neural Network(NN) model has been a big interest in many areas.
 
-Works like "[Global Minimizers of l^p-Regularized Objectives Yield the Sparsest ReLU Neural Networks](https://arxiv.org/pdf/2505.21791)" have proven some interesting properties about the sparsity of a single-hidden layer NN.
+Works like "[Global Minimizers of ℓᵖ-Regularized Objectives Yield the Sparsest ReLU Neural Networks](https://arxiv.org/pdf/2505.21791)" have proven some interesting properties about the sparsity of a single-hidden-layer NN.
 
 In this paper, we want to leverage the MIP formulation of a Neural Network model with nonlinear activation function and try to find the true sparsest NN weights.
-(We will refer to the MIP formulation of a NN presented by "[Fischetti&Jo](https://link.springer.com/content/pdf/10.1007/s10601-018-9285-6.pdf)".)
+(We will refer to the MIP formulation of a NN presented by "[Fischetti&Jo](https://link.springer.com/content/pdf/10.1007/s10601-018-9285-6.pdf)")
 
-In our problem, we aim to interpolate our dataset exactly to a single-hidden layer NN model with ReLU activation function.
+In our problem, we aim to interpolate our dataset exactly to a single-hidden-layer NN model with ReLU activation function.
 
 We first start with the vanilla setting of the NN and proceed to generalize the architecture of the NN.
 
-We can generalize this setting in several ways
+We can generalize this setting in several ways:
 ```
-multiple-hidden layers, 
+multiple-hidden-layers, 
 ```
-
-This sentence uses `$` delimiters to show math inline: $\sqrt{3x-1}+(1+x)^2$
-
-This sentence uses $\` and \`$ delimiters to show math inline: $`\sqrt{3x-1}+(1+x)^2`$
-
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
-
-### Problem Description
-
-We solve the following LP:
-
-$$
-\begin{aligned}
-\text{maximize} \quad & 5x + 4y \\
-\text{subject to}\quad
-& 6x + 4y \le 24 \\
-& x + 2y \le 6 \\
-& x, y \ge 0
-\end{aligned}
-$$
-
-where:
-- $x$ = units of product A  
-- $y$ = units of product B
 
 ## Problem Setting
 
-$(\mathbf{x}^1, y^1)$
-$(\mathbf{x}^{(1)}, y^{(1)})$
-$(\boldsymbol{x}^1, y^1)$
-(<b>x</b><sup>1</sup>, y<sup>1</sup>)
-(<strong>x</strong><sup>1</sup>, y<sup>1</sup>)
-
-1. Given **N datasets**:
-   $(**{x^1}**, y^1), (\mathbf{x}^2, y^2), \dots, (\mathbf{x}^N, y^N)$
+* Given **N datasets**: $(x^1, y^1), (x^2, y^2), \dots, (x^N, y^N) \in R^n \times R$
 
 3. **Input:**  
    Each input vector is *d*-dimensional  
@@ -78,6 +47,12 @@ $(\boldsymbol{x}^1, y^1)$
    \]
 
 ---
+
+### Sparsity Measure
+
+How to measure the sparsity of a NN is an important issue.
+
+At this point, we define sparsity as the number of nonzero 'path' of the NN, i.e., and we set this as the objective function of our optimization problem.
 
 ## 🧮 Neural Network Formulation
 
@@ -131,6 +106,30 @@ t_{ij} \in \{0,1\}
 \]
 
 ---
+
+This sentence uses `$` delimiters to show math inline: $\sqrt{3x-1}+(1+x)^2$
+
+This sentence uses $\` and \`$ delimiters to show math inline: $`\sqrt{3x-1}+(1+x)^2`$
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+
+### Problem Description
+
+We solve the following LP:
+
+$$
+\begin{aligned}
+\text{maximize} \quad & 5x + 4y \\
+\text{subject to}\quad
+& 6x + 4y \le 24 \\
+& x + 2y \le 6 \\
+& x, y \ge 0
+\end{aligned}
+$$
+
+where:
+- $x$ = units of product A  
+- $y$ = units of product B
 
 ## ⚙️ General MIP Formulation
 
