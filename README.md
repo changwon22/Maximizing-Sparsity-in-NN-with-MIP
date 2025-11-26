@@ -16,28 +16,20 @@ Works like "[Global Minimizers of ℓᵖ-Regularized Objectives Yield the Sparse
 In this paper, we want to leverage the MIP formulation of a Neural Network model with nonlinear activation function and try to find the true sparsest NN weights.
 (We will refer to the MIP formulation of a NN presented by "[Fischetti&Jo](https://link.springer.com/content/pdf/10.1007/s10601-018-9285-6.pdf)")
 
-In our problem, we aim to interpolate our dataset exactly to a single-hidden-layer NN model with ReLU activation function.
+In our problem, we aim to interpolate our dataset exactly to a single-hidden-layer ReLU NN.
 
 We first start with the vanilla setting of the NN and proceed to generalize the architecture of the NN.
 
 We can generalize this setting in several ways:
 ```
-multiple-hidden-layers, 
+multiple-hidden-layers, different activation function, multivariate output
 ```
 
 ## Problem Setting
 
-* Given **N datasets**: $(x^1, y^1), (x^2, y^2), \dots, (x^N, y^N) \in R^n \times R$
-
-3. **Input:**  
-   Each input vector is *d*-dimensional  
-   \[
-   \mathbf{x}^n = (x^n_1, x^n_2, \ldots, x^n_d) \in \mathbb{R}^d, \quad \forall n \in [N]
-   \]  
-   Augmented input:  
-   \[
-   \overline{\mathbf{x}^n} = (x^n_1, x^n_2, \ldots, x^n_d, 1) \in \mathbb{R}^{d+1}
-   \]
+* Given **N datasets**: $(x^1, y^1), (x^2, y^2), \dots, (x^N, y^N) \in R^d \times R$
+* Find weight/bias parameters: $
+* $x^n \rightarrow W^T x^n + b$
 
 4. Each sample passes through:
    \[
@@ -53,6 +45,11 @@ multiple-hidden-layers,
 How to measure the sparsity of a NN is an important issue.
 
 At this point, we define sparsity as the number of nonzero 'path' of the NN, i.e., and we set this as the objective function of our optimization problem.
+
+### Feasibility Check
+
+There are two ways to determine the width $K$ of the single-hidden-layer.
+
 
 ## 🧮 Neural Network Formulation
 
