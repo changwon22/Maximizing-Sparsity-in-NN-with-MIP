@@ -23,7 +23,7 @@ from gurobipy import GRB
 # 2.1. MINLP
 
 # 2.2. MILP
-def solve_MILP(X, y, w_Bound, b_Bound, output_flag=1):
+def solve_MILP(X, y, w_Bound, b_Bound, output_flag=1, timeout_seconds=None):
     
     # Input X has d dimension and N number of data
     N, d = X.shape
@@ -97,13 +97,28 @@ def solve_MILP(X, y, w_Bound, b_Bound, output_flag=1):
         m.addConstr(-b_Bound * s[k] <= b[k])
         m.addConstr(b[k] <= b_Bound * s[k])
 
+    # Set output flag
+    m.setParam('OutputFlag', output_flag)
+
+    # Set timeout if specified
+    if timeout_seconds is not None:
+        m.setParam('TimeLimit', timeout_seconds)
+
     # Solve
-    # m.setParam('OutputFlag', 0)
     m.optimize()
 
     # Print
-    print(f"\nModel status: {m.status}")
-    if m.status in (GRB.OPTIMAL, GRB.SUBOPTIMAL):
-        print(f"Objective value (sum t_ik): {m.ObjVal:.6f}")
+    if output_flag:
+        print(f"\nModel status: {m.status}")
+        if m.status in (GRB.OPTIMAL, GRB.SUBOPTIMAL):
+            print(f"Objective value (sum t_ik): {m.ObjVal:.6f}")
 
-    return W, b, v_, m.ObjVal
+    # Return results with status
+    if m.status in (GRB.OPTIMAL, GRB.SUBOPTIMAL):
+        return W, b, v_, m.ObjVal, m.status
+    elif m.status == GRB.TIME_LIMIT:
+        # Return best solution found so far
+        obj_val = m.ObjVal if m.SolCount > 0 else float('inf')
+        return W, b, v_, obj_val, m.status
+    else:
+        return W, b, v_, float('inf'), m.status

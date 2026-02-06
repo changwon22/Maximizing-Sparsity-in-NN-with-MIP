@@ -1,0 +1,6 @@
+numpy>=1.19.0
+torch>=1.9.0
+pandas>=1.1.0
+gurobipy>=9.0.0
+matplotlib>=3.3.0
+openpyxl>=3.0.0

@@ -4,13 +4,13 @@ from gurobipy import GRB
 
 # Data Generation
 from data import data
-N, d = 7, 3
+N, d = 5, 3
 X1, X2, X3, y1, y2, y3 = data(N, d)
 
 # First Stage (Feasibility) Problem
     
 # Second Stage (Sparsity) Problem
 from functions import solve_MILP
-w_Bound=3.0
-b_Bound=3.0
+w_Bound=1.0
+b_Bound=1.0
 W, b, v_, ObjVal = solve_MILP(X1, y1, w_Bound, b_Bound)

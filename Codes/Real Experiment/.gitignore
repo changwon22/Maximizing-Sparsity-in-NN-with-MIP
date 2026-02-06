@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints
+
+# IDEs
+.idea/
+.vscode/
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# Output files
+figs/
+*.png
+experiment_results.xlsx
+experiment_results.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Gurobi
+*.log
+gurobi.log

@@ -2,87 +2,98 @@ import numpy as np
 import gurobipy as gp
 from gurobipy import GRB
 
-# Given Values
+def solve_nlp(m,K):
+
+    # t = np.linspace(0, 1, m + 2)
+    t = np.random.uniform(0, 1, m)   # m random points in (0,1)
+    t = np.concatenate(([0], t, [1]))  # add endpoints
+    t.sort()
+    print("t =", t)
+    y = np.random.rand(m+2)
+    print("y =", y)
+
+    # M[i,j] = max(0, t[i] - t[j])
+    M = np.maximum(0, t[:, None] - t[None, :])
+
+    #GurobiPy
+    model = gp.Model()
+
+    # 1.Decision Variables
+    v = model.addVars(K,vtype=GRB.CONTINUOUS, name="v")
+    # |v|=z
+    z = model.addVars(K, lb=0.0, vtype=GRB.CONTINUOUS, name="z")
+
+    u = model.addVars(m+2,K,vtype=GRB.CONTINUOUS, name="u")
+    u_ = model.addVars(m+2,K,vtype=GRB.CONTINUOUS, name="u_")
+
+    # |u|=w, |u_|=w_
+    w = model.addVars(m+2,K,lb=0.0,vtype=GRB.CONTINUOUS, name="w")
+    w_ = model.addVars(m+2,K,lb=0.0,vtype=GRB.CONTINUOUS, name="w_")
+
+    # 2.Objective Function
+    model.setObjective(gp.quicksum(z[k] for k in range(K)), GRB.MINIMIZE)
+
+    # 3.Constraints
+    # Absolute Values for v, u, u_tilde
+    for k in range(K):
+        model.addConstr(v[k]<=z[k])
+        model.addConstr(-z[k]<=v[k])
+    for i in range(m+2):
+        for k in range(K):
+            model.addConstr(u[i,k]<=w[i,k])
+            model.addConstr(-w[i,k]<=u[i,k])
+            model.addConstr(u_[i,k]<=w_[i,k])
+            model.addConstr(-w_[i,k]<=u_[i,k])
+
+    # Constraint (1)
+    for k in range(K):
+        model.addConstr(
+            (gp.quicksum(w[i,k]+w_[i,k] for i in range(m+2)))<=1
+        )
+    
+    # Constraint (2)
+    for j in range(m+2):
+        model.addConstr(
+            gp.quicksum(v[k]*gp.quicksum(u[k,i]*M[j,i]+u_[k,i]*M[i,j] for i in range (m+2)) for k in range(K))==y[j]
+        )
+        
+    # Constraint (3)
+    for k in range(K):
+        for j in range(m+1):
+            model.addConstr(
+                gp.quicksum(u[k,i]*M[j,i]+u_[k,i]*M[i,j] for i in range(m+2))*gp.quicksum(u[k,i]*M[j+1,i]+u_[k,i]*M[i,j+1]for i in range(m+2))>=0
+            )
+
+    # Solve
+    model.optimize()
+    # Print
+    print(f"\nModel status: {model.status}")
+    if model.status in (GRB.OPTIMAL, GRB.SUBOPTIMAL):
+        print(f"Objective value (sum t_ik): {model.ObjVal:.6f}")
+
+    v_val  = [v[k].X for k in range(K)]
+    u_val  = [[u[i, k].X for k in range(K)] for i in range(m + 2)]
+    u_val_ = [[u_[i, k].X for k in range(K)] for i in range(m + 2)]
+
+    return opt_val, v_val, u_val, u_val_
+
+
+# Example
 m=3
 K=m+2
-t = np.linspace(0, 1, m + 2)
-y = np.random.rand(m+2)
-
-# GurobiPy
-m = gp.Model()
-
-# Decision Variables
-v = m.addVars(K,vtype=GRB.CONTINUOUS, name="v")
-# |v|=z
-z = m.addVars(K,lb=0.0, vtype=GRB.CONTINUOUS, name="z")
-
-u = m.addVars(m+1,K,vtype=GRB.CONTINUOUS, name="u")
-u_ = m.addVars(m+1,K,vtype=GRB.CONTINUOUS, name="u_")
-
-# |u|=w, |u_|=w_
-w = m.addVars(m+1,K,lb=0.0,vtype=GRB.CONTINUOUS, name="u")
-w_ = m.addVars(m+1,K,lb=0.0,vtype=GRB.CONTINUOUS, name="u_")
-
-# Objective Function
-m.setObjective(gp.quicksum((z[k]) for k in range(K)), GRB.MINIMIZE)
-
-# Constraint 1
-for k in range(K):
-    m.addConstr(
-                gp.quicksum(W[i,j] * X[n, j] for j in range(d)) + b[i]
-                == p[n, i] - q[n, i],
-                name=f"affine_{n}_{i}"
-            )
-
-# Constraint 2
- 
-# Constraint 3            
-
-for n in range(N):
-        for i in range(l1):
-            m.addConstr(
-                gp.quicksum(W[i,j] * X[n, j] for j in range(d)) + b[i]
-                == p[n, i] - q[n, i],
-                name=f"affine_{n}_{i}"
-            )
-
-m.addConstr(p[n,i] <= M * (1 - z[n,i]))
-
-
-    Bw = 1.1
-    W = m.addVars(l1, d, lb=-Bw, ub=Bw, vtype=GRB.CONTINUOUS, name="W")
-    Bb = 1.1
-    b = m.addVars(l1,lb=-Bb, ub=Bb, vtype=GRB.CONTINUOUS, name="b")
-    Bv = 1.1
-    v = m.addVars(l1, lb=-Bv, ub=Bv, vtype=GRB.CONTINUOUS, name="v")
-
-    p = m.addVars(N, l1, lb=0.0, vtype=GRB.CONTINUOUS, name="p")
-    q = m.addVars(N, l1, lb=0.0, vtype=GRB.CONTINUOUS, name="q")
-    z = m.addVars(N, l1, vtype=GRB.BINARY, name="z")
-
-    f = m.addVars(N, lb=0.0, vtype=GRB.CONTINUOUS, name="f")
-    g = m.addVars(N, lb=0.0, vtype=GRB.CONTINUOUS, name="g")
-
     
+opt_val,v,u,u_=solve_nlp(m,K)
 
-    for n in range(N):
-        for i in range(l1):
-            m.addConstr(
-                gp.quicksum(W[i,j] * X[n, j] for j in range(d)) + b[i]
-                == p[n, i] - q[n, i],
-                name=f"affine_{n}_{i}"
-            )
+print("\noptimal(minimum) value:", opt_val)
 
-    M = d*Bw + Bb
-    for n in range(N):
-        for i in range(l1):
-            m.addConstr(p[n,i] <= M * (1 - z[n,i]), name=f"pBigM_{n}_{i}")
-            m.addConstr(q[n,i] <= M * z[n,i],       name=f"qBigM_{n}_{i}")
+print("\nv:")
+for k in range(K):
+    print(f"v[{k}] = {v[k]}")
 
-    for n in range(N):
-        m.addConstr(
-            gp.quicksum(p[n,i] * v[i] for i in range(l1)) - y[n]==f[n]-g[n],
-            name=f"out_{n}"
-        )
+print("\nu:")
+for i in range(m + 2):
+    print([u[i][k] for k in range(K)])
 
-m.optimize()
+print("\nu_:")
+for i in range(m + 2):
+    print([u_[i][k] for k in range(K)])

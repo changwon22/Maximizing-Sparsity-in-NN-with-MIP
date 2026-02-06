@@ -23,13 +23,15 @@ def data(N,d):
     noise = 0.05 * np.random.randn(N)
     y2 = y + noise
     
-    # Case 3:
+    # Case 3: Low-rank linear data
     r = math.ceil(d / 2)
     Z = np.random.randn(N, r)
     A = np.random.randn(d, r)
     X3 = Z @ A.T
     w_true = np.zeros(d)
-    w_true[:3] = [1.0, -1.5, 0.7]
-    y3= X3 @ w_true + 0.05 * np.random.randn(N)
+    # Only assign non-zero weights if d is large enough
+    num_nonzero = min(3, d)
+    w_true[:num_nonzero] = [1.0, -1.5, 0.7][:num_nonzero]
+    y3 = X3 @ w_true + 0.05 * np.random.randn(N)
 
     return X1, X2, X3, y1, y2, y3
